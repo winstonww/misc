@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/data/wongwins/run_reference_script_fix/regtest/hld/opencl/designs/dla/dla'
+let g:netrw_dirhist_2='/home/winst/.vim'
+let g:netrw_dirhist_3='/home/winst/algorithms_and_data_structures'
+let g:netrw_dirhist_4='/home/winst/algorithms_and_data_structures/ ..'
+let g:netrw_dirhist_5='/home/winst/algorithms_and_data_structures'
+let g:netrw_dirhist_6='/home/winst/algorithms_and_data_structures/practice_problems'
+let g:netrw_dirhist_7='/home/winst/algorithms_and_data_structures'
