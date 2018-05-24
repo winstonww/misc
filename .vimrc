@@ -1,12 +1,3 @@
-" Include the system settings
-:if filereadable( "/etc/vimrc" )
-   source /etc/vimrc
-:endif
-
-" Include Arista-specific settings
-:if filereadable( $VIM . "/vimfiles/arista.vim" )
-   source $VIM/vimfiles/arista.vim 
-:endif 
 set nocompatible              " be iMproved, required filetype off                  
 " required 
 syntax on 
@@ -14,6 +5,7 @@ set incsearch
 set nowrap 
 set number 
 set relativenumber 
+"set smart search; case senstive only if search pattern contains uppercase;
 set ignorecase 
 set smartcase 
 map <F6> :!ctags -R *<CR> 
@@ -54,11 +46,6 @@ colorscheme gruvbox
 if g:colors_name == "gruvbox"
 "List other overrides here
 endif
-" set mouse 
-
-"set smart search; case senstive only if search pattern contains uppercase;
-set ignorecase
-set smartcase
 
 "" Fast scrolling mapping 
 :noremap j 6<C-E>
