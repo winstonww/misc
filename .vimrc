@@ -1,3 +1,12 @@
+" Include the system settings
+:if filereadable( "/etc/vimrc" )
+   source /etc/vimrc
+:endif
+
+" Include Arista-specific settings
+:if filereadable( $VIM . "/vimfiles/arista.vim" )
+   source $VIM/vimfiles/arista.vim 
+:endif 
 set nocompatible              " be iMproved, required filetype off                  
 " required 
 syntax on 
@@ -5,7 +14,6 @@ set incsearch
 set nowrap 
 set number 
 set relativenumber 
-"set smart search; case senstive only if search pattern contains uppercase;
 set ignorecase 
 set smartcase 
 map <F6> :!ctags -R *<CR> 
@@ -46,6 +54,11 @@ colorscheme gruvbox
 if g:colors_name == "gruvbox"
 "List other overrides here
 endif
+" set mouse 
+
+"set smart search; case senstive only if search pattern contains uppercase;
+set ignorecase
+set smartcase
 
 "" Fast scrolling mapping 
 :noremap j 6<C-E>
@@ -56,10 +69,22 @@ endif
 :noremap K <Up>
 :noremap H <Left>
 :noremap L <Right>
+
+:nnoremap <C-J> <C-W><C-J>
+:nnoremap <C-K> <C-W><C-K>
+:nnoremap <C-L> <C-W><C-L>
+:nnoremap <C-H> <C-W><C-H>
+
 "easy motion config
 map  f <Plug>(easymotion-bd-f)
 nmap <Leader>w <Plug>(easymotion-bd-w)
 
 "map global copy and paste
 set clipboard=unnamedplus
-
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+  autocmd WinLeave * setlocal nocursorline
+  autocmd WinLeave * setlocal nocursorcolumn
+augroup END
