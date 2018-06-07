@@ -10,6 +10,7 @@ if __name__ == '__main__':
   parser.add_argument('-f', "--file_path", type=str, required=True,
                         help='enter the path of the workspace file')
 
+  parser.add_argument('-p',"--diff_parent", help='diff against parent', action="store_true")
   args = parser.parse_args()
 
   ws_path = os.path.abspath( args.file_path )
@@ -24,7 +25,10 @@ if __name__ == '__main__':
 
   with open( tmp_patch_path , "w" ) as patch_fh:
     try:
-      subprocess.check_call( ["a4", "diff",  ws_path ] , stdout=patch_fh )
+      if args.diff_parent:
+         subprocess.check_call( ["a4", "project", "diff",  ws_path ] , stdout=patch_fh )
+      else:
+         subprocess.check_call( ["a4", "diff",  ws_path ] , stdout=patch_fh )
     except subprocess.CalledProcessError:
       sys.exit("cannot obtain diff patch, exiting")
 
