@@ -1,0 +1,209 @@
+# vim 
+easy motion
+split view/file switching/nerd tree
+plugin installed:
+ctrlp, airline, vundle, pathogen, easymotion,  
+to-install:
+surround, (NerdCommenter/NerdTree) 
+
+# insert at the beginning of line: I; at cursor: i
+# insert at the end of line: A 
+
+# Goto Next (hence gn) search, and change/yank the search 
+# for more details, http://vim.wikia.com/wiki/Copy_or_change_search_hit
+gn; c/y # goto next search, change/yank
+
+# Inner word and All word 
+ciw, ya> change/yank inner or all word/in <>
+
+# Indenting
+# Indent by counting line number 
+  # 10>> ::
+# Brute force indent  
+  # Press V for visual line mode; select til the end of lines to indent 
+  # Press > 
+# function charcterized by {} indent
+  # >i{
+
+
+# Autoindent 
+= does all autoindent
+
+
+# to end search highlight 
+:noh                           # NO Highlight 
+
+<Ctrl-E>          # scrolls down; 
+<Ctrl-Y>          # Scrolls up 
+<Ctrl-O>          # previous location 
+<Ctril-I>         # next location 
+
+# one charcter modify 
+x: delete one charcter; r: replace one charcter 
+
+
+# power of global :g, http://vim.wikia.com/wiki/Power_of_g
+:g/TODO:/                      # find all lines contain "TODO:"
+:g/Mouse/ s/Mickey/Minnie/     # find all lines contain mouse; replace 'Mickey' to 'Minnie' on those lines
+:g!/sucks/ s/emacs/vim/        # find all lines doesn't contain suck; replace "emacs" with "vim" 
+:g/Mouse/d                     # find all lines containing "Mouse"; delete
+
+#quick fix; usually used with vimgrep
+:copen                         # Open the quickfix window
+:ccl                           # Close it
+:cw                            # Open it if there are "errors", close it otherwise (some people prefer this)
+:cn                            # Go to the next error in the window
+:cnf                           # Go to the first error in the next file
+
+# vimgrep
+set g set default
+# The “g” option find all matches – including multiple matches on the same line.
+# The “j” option turns off the auto-goto first match feature.
+:vim[grep][!] /{pattern}/[g][j] {file} ...
+
+
+# new tab
+:tabnew 
+# gt, gT (next tab, previous tab)
+
+
+# searching 
+/<search-pattern>
+n: next search 
+N: previous search 
+Gn: first search
+GN: last search
+
+
+# Jump to beginning of code block
+[{ start of 
+[m start of method 
+
+# go to before and after 
+ctrl o before 
+ctrl i after
+
+
+# vim Command line hotkeys
+Ctrl-w # delete word
+Ctrl-u # delete line
+Ctrl-r (<reg>) # paste from register reg
+  e.g. <Ctrl-R> + # paste from unnamed register
+
+# registers 
+"<reg>y # yank to register 
+  e.g. "ay # yank to register a 
+# default register is set to the unnamed reigster(+), aka system clipboard g
+
+# search and replace with regex
+/{search pattern}
+:%s//{replace pattern} # replace all lines with replace pattern if search found
+:1,10s//{replace pattern} # replace line 1 to 10 with  replace pattern if search found
+
+# autocompletion
+<ctrl-r>{reg} #insert from regster
+<ctrl-p> <ctrl-n> # auto word completion
+<ctrl-x><ctrl-]> # auto tag completion
+<ctrl-x><ctrl-p> # context-aware word completion
+<ctr-x><ctrl-l> # context aware line completion
+<ctrl-x><ctrl-o> # language omnicompletion
+<ctrl-x><ctrl-f> # file completion
+
+# splits
+:sp # horizontal split
+:vsp # vertical split
+:e #open in same view
+:<Ctrl-w>| # maximize vertically 
+:<Ctrl-w>_ # maximize horizontally
+:bdelete # delete the buffer and close the split too
+:q # only close the file but buffer still there
+<Ctrl-w>hjkl # swithcing between splits
+
+---- Fuzzy finding equivlent -------
+:e  -----  :find
+:sp -----  : sf
+:vs -----  :vert sf
+-------------------------------------
+# matches and searches
+% # match wtever...ifdefs, {}, [] 
+* # match exact word
+
+# ctags
+<Ctrl-]> go to first definition
+ts # list all definitions
+tn # go to next defintion 
+<F6> maps to command: ctags -R * 
+
+# default folding
+set foldmethod=indent # set folding based on indentation 
+set foldmethod=syntax
+set foldmethod=manual
+zc # close fold
+zo # open fold
+za # toggle 
+zC, zO, zA # does the same in all levels 
+
+zR # unfold EVERYTHING 
+zM # fold EVERYTHING 
+
+
+set scollbind # to scroll on both simultaneously 
+
+# vim diff
+:vert diffsplit file2 # diff current pane with file 2
+:windo diffthis       # diff all opened visible windows (windo apply to all windows)
+:diffoff!             # turn off diff (! apply to all windows)
+:diffupdate           # update diff
+[c                    # previous diff
+]c                    # next diff
+
+# Paste mode: disable autoformatting when pasting
+:set paste
+
+# repeat commands
+.            # repeat the previous action
+&            # re-do substitution
+
+# moving lines around 
+:m 12        # move current line to after line 12
+:m 0         # move current line to before first line
+:m $         # move current line to after last line
+:m 'a        # move current line to after line with mark a (see using marks)
+:m 'a-1      # move current line to before line with mark a
+:m '}-1      # move current line to the end of the current paragraph
+
+For clarity, a space is shown after the :m commands above, but that space is not required.
+To move a block of lines, use the same command but visually select the lines before entering the move command. You can also use arbitrary ranges with the move command. Examples:
+
+:5,7m 21     # move lines 5, 6 and 7 to after line 21
+:5,7m 0      # move lines 5, 6 and 7 to before first line
+:5,7m $      # move lines 5, 6 and 7 to after last line
+:.,.+4m 21   # move 5 lines starting at current line to after line 21
+:,+4m14      # same (. for current line is assumed)
+
+# resizing splits
+:res 60
+:vert res +5
+
+# Aligning, when the typical set wrap doesnt work...
+
+# e.x. 
+a=1;
+foo=2;
+longstring=1;
+c=2
+
+to 
+a          =1;
+foo        =2;
+longstring =1;
+c          =2;
+
+0f=20i<Space><Esc>020lvf=hx
+
+0 goes to first column
+f= finds next occurrence of = on current line
+20i<Space><Esc> inserts 20 spaces before =
+0 goes back to first column
+20l forward 20 column
+vf=hx deletes everything up to the = sign

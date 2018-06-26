@@ -26,6 +26,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'  
 Plugin 'morhetz/gruvbox'
 Plugin 'ervandew/supertab'
+Plugin 'mhinz/vim-startify'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -56,6 +57,11 @@ if g:colors_name == "gruvbox"
 endif
 " set mouse 
 
+" set terminal
+"set termwinkey=<F2>
+:tnoremap <Esc> <C-W>N
+":tnoremap <F1> <C-W>N
+
 "set smart search; case senstive only if search pattern contains uppercase;
 set ignorecase
 set smartcase
@@ -80,7 +86,7 @@ map  f <Plug>(easymotion-bd-f)
 nmap <Leader>w <Plug>(easymotion-bd-w)
 
 "map global copy and paste
-set clipboard=unnamedplus
+set clipboard=unnamed
 augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline

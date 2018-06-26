@@ -40,6 +40,7 @@ if __name__ == '__main__':
     except subprocess.CalledProcessError:
       sys.exit("cannot apply diff patch, exiting")
     # copy patched file to tmp
+    subprocess.check_call( ["a4","edit", ws_path], stdin=patch_fh )
     copyfile( ws_path , tmp_original_path )
     copyfile( tmp_ws_path , ws_path )
 
