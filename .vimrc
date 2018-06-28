@@ -1,12 +1,3 @@
-" Include the system settings
-:if filereadable( "/etc/vimrc" )
-   source /etc/vimrc
-:endif
-
-" Include Arista-specific settings
-:if filereadable( $VIM . "/vimfiles/arista.vim" )
-   source $VIM/vimfiles/arista.vim 
-:endif 
 set nocompatible              " be iMproved, required filetype off                  
 " required 
 syntax on 
@@ -22,7 +13,8 @@ map <F6> :!ctags -R *<CR>
 set rtp+=~/.vim/bundle/Vundle.vim 
 call vundle#begin() " alternatively, pass a path where Vundle should install plugins " 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'easymotion/vim-easymotion'
+Plugin 'justinmk/vim-sneak'
+"Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'  
 Plugin 'morhetz/gruvbox'
@@ -63,26 +55,41 @@ set ignorecase
 set smartcase
 
 "" Fast scrolling mapping 
-:noremap j 6<C-E>
-:noremap k 6<C-Y>
-:noremap h 10zh
-:noremap l 10zl
-:noremap J <Down>
-:noremap K <Up>
-:noremap H <Left>
-:noremap L <Right>
+noremap j 6<C-E>
+noremap k 6<C-Y>
+noremap h 10zh
+noremap l 10zl
+noremap J <Down>
+noremap K <Up>
+noremap H <Left>
+noremap L <Right>
 
-:nnoremap <C-J> <C-W><C-J>
-:nnoremap <C-K> <C-W><C-K>
-:nnoremap <C-L> <C-W><C-L>
-:nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 "easy motion config
-map  f <Plug>(easymotion-bd-f)
-nmap <Leader>w <Plug>(easymotion-bd-w)
+" map  f <Plug>(easymotion-bd-f)
+" nmap <Leader>w <Plug>(easymotion-bd-w)
+
+" vim-sneak
+let g:sneak#label = 1
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
+
+" backspace problem in mac
+set backspace=indent,eol,start
+
+" terminal
+tnoremap <Esc> <C-W>N
+tnoremap <C-J> <C-W><C-J>
+tnoremap <C-K> <C-W><C-K>
+tnoremap <C-L> <C-W><C-L>
+tnoremap <C-H> <C-W><C-H>
 
 "map global copy and paste
-set clipboard=unnamedplus
+ 
 augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
