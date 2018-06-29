@@ -7,13 +7,17 @@ from shutil import copyfile
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='diff workspace file from PerForce repo applying a4 diff with vim. needs to be run in the container')
-  parser.add_argument('-f', "--file_path", type=str, required=True,
-                        help='enter the path of the workspace file')
+  group = parser.add_mutually_exclusive_group(required=True)
+  group.add_argument('-l', "--local_path", type=str, help='enter the path of the workspace file')
+  group.add_argument('-p', "--parent_path", type=str, help='enter the path of the workspace file')
 
-  parser.add_argument('-p',"--diff_parent", help='diff against parent', action="store_true")
   args = parser.parse_args()
 
-  ws_path = os.path.abspath( args.file_path )
+  if args.local_path:
+    ws_path = os.path.abspath( args.local_path )
+  elif args.parent_path:
+    ws_path = os.path.abspath( args.parent_path )
+
   tmp_ws_path = "/tmp/{0}".format( os.path.basename( ws_path ) )
 
   tmp_original_path = "/tmp/{0}_original{1}".format( os.path.splitext( os.path.basename( ws_path ))[0] , 
@@ -25,10 +29,12 @@ if __name__ == '__main__':
 
   with open( tmp_patch_path , "w" ) as patch_fh:
     try:
-      if args.diff_parent:
+      if args.parent_path:
          subprocess.check_call( ["a4", "project", "diff",  ws_path ] , stdout=patch_fh )
-      else:
+      elif args.local_path:
          subprocess.check_call( ["a4", "diff",  ws_path ] , stdout=patch_fh )
+      else:
+         assert(False)
     except subprocess.CalledProcessError:
       sys.exit("cannot obtain diff patch, exiting")
 

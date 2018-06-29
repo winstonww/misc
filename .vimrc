@@ -7,31 +7,40 @@
 :if filereadable( $VIM . "/vimfiles/arista.vim" )
    source $VIM/vimfiles/arista.vim 
 :endif 
-set nocompatible              " be iMproved, required filetype off                  
-" required 
+
+"install vimplug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 syntax on 
+set nocompatible
 set incsearch 
 set nowrap 
 set number 
 set relativenumber 
 set ignorecase 
 set smartcase 
+
+"ctags
 map <F6> :!ctags -R *<CR> 
-" set the runtime path to include Vundle and initialize 
-set rtp+=~/.vim/bundle/Vundle.vim 
-call vundle#begin() " alternatively, pass a path where Vundle should install plugins " 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'  
-Plugin 'morhetz/gruvbox'
-Plugin 'ervandew/supertab'
-Plugin 'mhinz/vim-startify'
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+
+"vim-plug plugins
+call plug#begin()
+Plug 'justinmk/vim-sneak'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'  
+Plug 'morhetz/gruvbox'
+Plug 'ervandew/supertab'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+call plug#end()
+
 " To ignore plugin indent changes, instead use:
 filetype plugin on
+
 "show existing tab with 4 spaces width
 set tabstop=2
 " when indenting with '>', use 4 spaces width
@@ -55,12 +64,12 @@ colorscheme gruvbox
 if g:colors_name == "gruvbox"
 "List other overrides here
 endif
-" set mouse 
 
 " set terminal
-"set termwinkey=<F2>
 :tnoremap <Esc> <C-W>N
-":tnoremap <F1> <C-W>N
+
+" esc delay 
+set timeoutlen=1000 ttimeoutlen=0
 
 "set smart search; case senstive only if search pattern contains uppercase;
 set ignorecase
@@ -81,9 +90,15 @@ set smartcase
 :nnoremap <C-L> <C-W><C-L>
 :nnoremap <C-H> <C-W><C-H>
 
-"easy motion config
-map  f <Plug>(easymotion-bd-f)
-nmap <Leader>w <Plug>(easymotion-bd-w)
+:tnoremap <C-J> <C-W><C-J>
+:tnoremap <C-K> <C-W><C-K>
+:tnoremap <C-L> <C-W><C-L>
+:tnoremap <C-H> <C-W><C-H>
+
+"vim-sneak
+let g:sneak#label = 1
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
 "map global copy and paste
 set clipboard=unnamed
